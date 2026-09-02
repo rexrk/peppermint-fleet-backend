@@ -1,0 +1,13 @@
+package io.github.rexrk.robotfleetnode;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class RobotFleetNodeApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
