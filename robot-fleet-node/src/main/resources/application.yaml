@@ -1,3 +1,29 @@
 spring:
   application:
     name: robot-fleet-node
+
+# Robot initial details
+robot:
+  mac: ${ROBOT_MAC:r1mac1x}
+  id: ${ROBOT_ID:r1}
+  type: ${ROBOT_TYPE:picker}
+  start-position:
+    x: ${ROBOT_START_X:569.9}
+    y: ${ROBOT_START_Y:33.0}
+
+  heartbeat:
+    interval: 5s
+
+  battery-percentage: 100
+
+# Broker configuration
+mqtt:
+  broker-url: ${MQTT_BROKER_URL:tcp://localhost:1883}
+  client-id: robot-%s-service
+
+  topics:
+    robot-status: robots/%s/status
+    robot-command: robots/%s/commands
+
+  qos: 1
+  clean-session: false

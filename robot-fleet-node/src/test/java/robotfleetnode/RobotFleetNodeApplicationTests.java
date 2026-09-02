@@ -1,4 +1,4 @@
-package io.github.rexrk.robotfleetnode;
+package robotfleetnode;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
