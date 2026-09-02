@@ -8,8 +8,8 @@ robot:
   id: ${ROBOT_ID:r1}
   type: ${ROBOT_TYPE:picker}
   start-position:
-    x: ${ROBOT_START_X:569.9}
-    y: ${ROBOT_START_Y:33.0}
+    x: ${ROBOT_START_X:0.0}
+    y: ${ROBOT_START_Y:0.0}
 
   heartbeat:
     interval: 5s

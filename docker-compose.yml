@@ -1,14 +1,184 @@
 services:
+
+  # --------------------------------------------------
+  # MQTT Broker
+  # --------------------------------------------------
   mosquitto:
     image: eclipse-mosquitto:latest
     container_name: mosquitto
     restart: unless-stopped
+
     ports:
-      - "1883:1883"   # Standard MQTT port
-      - "9001:9001"   # WebSockets port (optional)
+      - "1883:1883"
+      - "9001:9001"
+
     volumes:
-      # Mount the config file you just created
       - ./broker:/mosquitto/config
-      # Mount folders for persistent data and logs
-      - ./data:/broker/mosquitto/data
-      - ./log:/broker/mosquitto/log
+      - ./broker/data:/mosquitto/data
+      - ./broker/log:/mosquitto/log
+
+
+  # --------------------------------------------------
+  # Robots
+  # --------------------------------------------------
+  robot-r1:
+    image: robot-fleet-node
+    build:
+      context: ./robot-fleet-node
+      dockerfile: Dockerfile
+    container_name: robot-r1
+    restart: unless-stopped
+
+    environment:
+      ROBOT_ID: r1
+      ROBOT_MAC: r1mac1x
+      ROBOT_TYPE: picker
+      ROBOT_X: 569.9
+      ROBOT_Y: 33.0
+      MQTT_BROKER_URL: tcp://mosquitto:1883
+
+    volumes:
+      - ./data/events.jsonl:/app/data/events.jsonl
+
+    depends_on:
+      - mosquitto
+
+
+  robot-r2:
+    image: robot-fleet-node
+    container_name: robot-r2
+    restart: unless-stopped
+
+    environment:
+      ROBOT_ID: r2
+      ROBOT_MAC: r2mac2x
+      ROBOT_TYPE: hauler
+      ROBOT_X: 787.3
+      ROBOT_Y: 65.2
+      MQTT_BROKER_URL: tcp://mosquitto:1883
+
+    volumes:
+      - ./data/events.jsonl:/app/data/events.jsonl
+
+    depends_on:
+      - mosquitto
+
+
+  robot-r3:
+    image: robot-fleet-node
+    container_name: robot-r3
+    restart: unless-stopped
+
+    environment:
+      ROBOT_ID: r3
+      ROBOT_MAC: r3mac3x
+      ROBOT_TYPE: picker
+      ROBOT_X: 382.9
+      ROBOT_Y: 35.5
+      MQTT_BROKER_URL: tcp://mosquitto:1883
+
+    volumes:
+      - ./data/events.jsonl:/app/data/events.jsonl
+
+    depends_on:
+      - mosquitto
+
+
+  robot-r4:
+    image: robot-fleet-node
+    container_name: robot-r4
+    restart: unless-stopped
+
+    environment:
+      ROBOT_ID: r4
+      ROBOT_MAC: r4mac4x
+      ROBOT_TYPE: hauler
+      ROBOT_X: 208.0
+      ROBOT_Y: 282.8
+      MQTT_BROKER_URL: tcp://mosquitto:1883
+
+    volumes:
+      - ./data/events.jsonl:/app/data/events.jsonl
+
+    depends_on:
+      - mosquitto
+
+
+  robot-r5:
+    image: robot-fleet-node
+    container_name: robot-r5
+    restart: unless-stopped
+
+    environment:
+      ROBOT_ID: r5
+      ROBOT_MAC: r5mac5x
+      ROBOT_TYPE: picker
+      ROBOT_X: 42.8
+      ROBOT_Y: 123.4
+      MQTT_BROKER_URL: tcp://mosquitto:1883
+
+    volumes:
+      - ./data/events.jsonl:/app/data/events.jsonl
+
+    depends_on:
+      - mosquitto
+
+
+  robot-r6:
+    image: robot-fleet-node
+    container_name: robot-r6
+    restart: unless-stopped
+
+    environment:
+      ROBOT_ID: r6
+      ROBOT_MAC: r6mac6x
+      ROBOT_TYPE: hauler
+      ROBOT_X: 578.9
+      ROBOT_Y: 303.4
+      MQTT_BROKER_URL: tcp://mosquitto:1883
+
+    volumes:
+      - ./data/events.jsonl:/app/data/events.jsonl
+
+    depends_on:
+      - mosquitto
+
+
+  robot-r7:
+    image: robot-fleet-node
+    container_name: robot-r7
+    restart: unless-stopped
+
+    environment:
+      ROBOT_ID: r7
+      ROBOT_MAC: r7mac7x
+      ROBOT_TYPE: picker
+      ROBOT_X: 209.6
+      ROBOT_Y: 326.4
+      MQTT_BROKER_URL: tcp://mosquitto:1883
+
+    volumes:
+      - ./data/events.jsonl:/app/data/events.jsonl
+
+    depends_on:
+      - mosquitto
+
+
+  robot-r8:
+    image: robot-fleet-node
+    container_name: robot-r8
+    restart: unless-stopped
+
+    environment:
+      ROBOT_ID: r8
+      ROBOT_MAC: r8mac8x
+      ROBOT_TYPE: hauler
+      ROBOT_X: 716.1
+      ROBOT_Y: 23.4
+      MQTT_BROKER_URL: tcp://mosquitto:1883
+
+    volumes:
+      - ./data/events.jsonl:/app/data/events.jsonl
+
+    depends_on:
+      - mosquitto

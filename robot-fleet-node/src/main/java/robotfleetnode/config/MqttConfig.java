@@ -1,5 +1,7 @@
 package robotfleetnode.config;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.IMqttAsyncClient;
@@ -11,6 +13,10 @@ import org.springframework.integration.mqtt.core.ClientManager;
 import org.springframework.integration.mqtt.core.Mqttv3ClientManager;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
 import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
+import robotfleetnode.mqtt.MqttSubscriber;
+import org.springframework.integration.channel.DirectChannel;
+import org.springframework.messaging.MessageChannel;
+
 
 @Configuration
 @RequiredArgsConstructor
@@ -41,7 +47,8 @@ public class MqttConfig {
 
     @Bean
     public IntegrationFlow mqttInbound(
-            ClientManager<IMqttAsyncClient, MqttConnectOptions> clientManager) {
+            ClientManager<IMqttAsyncClient, MqttConnectOptions> clientManager,
+            MqttSubscriber mqttSubscriber) {
 
         String commandTopic = mqttProperties.getTopics()
                 .getRobotCommand()
@@ -52,9 +59,7 @@ public class MqttConfig {
                         clientManager,
                         commandTopic
                 ))
-                .handle(message -> {
-                    log.info("Received: {}", message.getPayload());
-                })
+                .handle(mqttSubscriber::receive)
                 .get();
     }
 
@@ -73,9 +78,21 @@ public class MqttConfig {
         handler.setDefaultQos(mqttProperties.getQos());
 
         return IntegrationFlow
-                .from("mqttOutboundChannel")
+                .from(mqttOutboundChannel())
                 .handle(handler)
                 .get();
+    }
+
+    @Bean
+    public MessageChannel mqttOutboundChannel() {
+        return new DirectChannel();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL);
+        return objectMapper;
     }
 
     /* Outbounnd test
