@@ -4,7 +4,6 @@ spring:
 
 # Robot initial details
 robot:
-  mac: ${ROBOT_MAC:r1mac1x}
   id: ${ROBOT_ID:r1}
   type: ${ROBOT_TYPE:picker}
   start-position:

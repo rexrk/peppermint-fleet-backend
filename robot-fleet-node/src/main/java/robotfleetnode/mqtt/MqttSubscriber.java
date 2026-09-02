@@ -23,7 +23,7 @@ public class MqttSubscriber {
         if ("PING".equalsIgnoreCase(payload)) {
             eventPublisher.publishEvent(
                     new RobotUpdateEvent(
-                            new RobotUpdate(null, null, null, null, null)
+                            new RobotUpdate(null, null, null, null, null, null)
                     )
             );
         }

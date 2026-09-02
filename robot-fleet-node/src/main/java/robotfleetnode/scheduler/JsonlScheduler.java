@@ -39,27 +39,24 @@ public class JsonlScheduler {
                 }
 
                 RobotUpdate update = new RobotUpdate(
+                        node.has("t")
+                                ? node.get("t").asLong() : null,
                         node.has("battery")
-                                ? node.get("battery").asDouble()
-                                : null,
+                                ? node.get("battery").asDouble() : null,
 
                         node.has("x")
-                                ? node.get("x").asDouble()
-                                : null,
+                                ? node.get("x").asDouble() : null,
 
                         node.has("y")
-                                ? node.get("y").asDouble()
-                                : null,
+                                ? node.get("y").asDouble() : null,
 
                         node.has("status")
                                 ? Robot.RobotStatus.valueOf(
-                                node.get("status").asText().toUpperCase())
-                                : null,
+                                node.get("status").asText().toUpperCase()) : null,
 
                         node.has("task_event")
                                 ? Robot.TaskEvent.valueOf(
-                                node.get("task_event").asText().toUpperCase())
-                                : null
+                                node.get("task_event").asText().toUpperCase()) : null
                 );
 
                 // Send event into the robot processing pipeline

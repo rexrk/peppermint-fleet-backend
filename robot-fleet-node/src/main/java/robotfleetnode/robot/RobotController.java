@@ -21,6 +21,9 @@ public class RobotController {
         try {
             RobotUpdate update = event.update();
 
+            if(update.t() != null)
+                robotManager.updateTimeStamp(update.t());
+
             if (update.battery() != null)
                 robotManager.updateBattery(update.battery());
 

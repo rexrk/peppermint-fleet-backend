@@ -14,7 +14,6 @@ public class RobotManager {
     public RobotManager(RobotProperties robotProperties) {
         this.robot = Robot.builder()
                 .id(robotProperties.getId())
-                .mac(robotProperties.getMac())
                 .type(Robot.RobotType.valueOf(robotProperties.getType().toUpperCase()))
                 .position(new Robot.Position(
                         robotProperties.getStartPosition().getX(),
@@ -24,6 +23,8 @@ public class RobotManager {
                 .build();
 
     }
+
+    public void updateTimeStamp(long t) { robot.setT(t); }
 
     public void updateBattery(double battery) {
         robot.setBattery(battery);

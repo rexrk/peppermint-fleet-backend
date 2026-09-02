@@ -14,10 +14,10 @@ import lombok.Setter;
 public class Robot {
     // immutable states
     private String id;
-    private String mac;
     private RobotType type;
 
     // mutable states
+    private long t;
     private Position position;
     private double battery;
     private RobotStatus status;
