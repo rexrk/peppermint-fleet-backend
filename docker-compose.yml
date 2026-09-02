@@ -10,5 +10,5 @@ services:
       # Mount the config file you just created
       - ./broker:/mosquitto/config
       # Mount folders for persistent data and logs
-      - ./data:/mosquitto/data
-      - ./log:/mosquitto/log
+      - ./data:/broker/mosquitto/data
+      - ./log:/broker/mosquitto/log
