@@ -25,12 +25,12 @@ public class MqttSubscriber {
             Robot robot = objectMapper.readValue(payload, Robot.class);
             robot.setLastSeen(Instant.now());
 
-            log.info(
-                    "Received robot update: {} status={} battery={}",
-                    robot.getId(),
-                    robot.getStatus(),
-                    robot.getBattery()
-            );
+//            log.info(
+//                    "Received robot update: {} status={} battery={}",
+//                    robot.getId(),
+//                    robot.getStatus(),
+//                    robot.getBattery()
+//            );
 
             eventPublisher.publishEvent(new FleetUpdateEvent(robot));
 

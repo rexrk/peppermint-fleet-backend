@@ -15,7 +15,7 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/robots/status")
 @RequiredArgsConstructor
-public class RobotController {
+public class FleetController {
 
     private final FleetState fleetState;
     private final RedisSnapshotService redisSnapshotService;

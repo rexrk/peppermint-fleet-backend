@@ -3,7 +3,6 @@ package robotfleetmanagement.fleet;
 import org.springframework.stereotype.Component;
 import robotfleetmanagement.model.Robot;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -25,7 +24,4 @@ public class FleetState {
         return robots.values();
     }
 
-    public Collection<Robot> getRobots() {
-        return new ArrayList<>(robots.values());
-    }
 }
