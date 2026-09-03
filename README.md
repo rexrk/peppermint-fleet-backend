@@ -203,7 +203,7 @@ STOMP over WebSocket provides topic-based fanout for dashboard clients. WebSocke
 
 #### LLM USED:
 
-* **ChatGPT 5.6 Luna (FREE TIER)** — https://chatgpt.com/c/6a96d6c3-1298-83ee-adb7-d81349fe92a0
+* **ChatGPT 5.6 Luna (FREE TIER)** — https://chatgpt.com/share/6a99b817-0b84-83e8-8b82-a9c318d34323
 * **Gemini 3.6 Flash (PLUS)**
 
 
