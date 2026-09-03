@@ -17,7 +17,6 @@ public class MqttSubscriber {
     private final ApplicationEventPublisher eventPublisher;
 
     public void receive(Message<?> message) {
-
         String payload = message.getPayload().toString();
 
         if ("PING".equalsIgnoreCase(payload)) {
@@ -27,5 +26,6 @@ public class MqttSubscriber {
                     )
             );
         }
+
     }
 }

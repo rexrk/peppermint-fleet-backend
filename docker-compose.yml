@@ -17,6 +17,16 @@ services:
       - ./broker/data:/mosquitto/data
       - ./broker/log:/mosquitto/log
 
+  # --------------------------------------------------
+  # Redis
+  # --------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
 
   # --------------------------------------------------
   # Robots
@@ -181,4 +191,27 @@ services:
       - ./data/events.jsonl:/app/data/events.jsonl
 
     depends_on:
+      - mosquitto
+
+  # --------------------------------------------------
+  # Fleet Management Backend
+  # --------------------------------------------------
+  fleet-backend:
+    image: robot-fleet-management
+    build:
+      context: ./robot-fleet-management
+      dockerfile: Dockerfile
+
+    restart: unless-stopped
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      MQTT_BROKER_URL: tcp://mosquitto:1883
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
+    depends_on:
+      - redis
       - mosquitto
