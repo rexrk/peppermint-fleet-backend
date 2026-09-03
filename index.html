@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>WebSocket Test</h2>
+<pre id="output"></pre>
+
+<script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+
+<script>
+const output = document.getElementById("output");
+
+const client = new StompJs.Client({
+    brokerURL: "ws://localhost:8080/ws",
+
+    onConnect: () => {
+        output.textContent += "CONNECTED\n\n";
+
+        client.subscribe("/topic/robots", message => {
+            output.textContent += message.body + "\n\n";
+        });
+    },
+
+    onStompError: frame => {
+        output.textContent += "STOMP ERROR:\n" + frame.body;
+    },
+
+    onWebSocketError: error => {
+        output.textContent += "WEBSOCKET ERROR\n";
+        console.error(error);
+    }
+});
+
+client.activate();
+</script>
+
+</body>
+</html>
